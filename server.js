@@ -14,7 +14,7 @@ import {fileURLToPath} from 'url'
 dotenv.config();
 
 //databse config
-connectDB();
+//connectDB();
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -38,6 +38,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/company", verifyToken, companyRoutes);
 
 //rest api
+
 app.get("/", (req, res) => {
   res.send("<h2>Welcome to Internshala Clone</h2>");
 });
@@ -50,6 +51,8 @@ app.use("*", function (req, res) {
 const PORT = process.env.PORT || 5000;
 
 //run listen
-app.listen(PORT, () => {
+connectDB().then(()=>{
+  app.listen(PORT,() => {
   console.log(`Server Running on port ${PORT}`);
-});
+})
+})
